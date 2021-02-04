@@ -66,27 +66,36 @@ inquirer.prompt([
     }
     
 ]).then(respone => {
-    const data = 
-    `#${respone.title}
-    ## Description
-    ${respone.description}
-    ## Table of Contents
-    ${respone.table}
-    ## Instructions
-    ${respone.instructions}
-    ## Useage Information
-    ${respone.usage}
-    ## License
-    ${respone.license}
-    ## Contributors
-    ${respone.contributors}
-    ## Testing
-    ${respone.test}
-    ## Questions
-    Please see Github Profile and Email Address below to ask questions
-    Github Profile: ${respone.github}   Email: ${respone.email}`   
+    const content = `
+# ${respone.title}
+
+## Description
+${respone.description}
+
+## Table of Contents
+${respone.table}
+
+## Instructions
+${respone.instructions}
+
+## Useage Information
+${respone.usage}
+
+## License
+${respone.license}
+
+## Contributors
+${respone.contributors}
+
+## Testing
+${respone.test}
+
+## Questions
+Please see Github Profile and Email Address below to ask questions  
+Github Profile: ${respone.github} | Email: ${respone.email}
+    `;   
     
-    fs.writeFile('README.md', data, err => {
+    fs.writeFile('README.md', content, err => {
         if (err) console.log(err);
         else console.log('success!');
       });
