@@ -110,7 +110,7 @@ ${response.test}
 
 ## Questions
 If you have any questions please contact me via Github or Email below  
-Github Profile: ${response.github} | Email: ${response.email}
+Github Profile: https://www.${response.github} | Email: ${response.email}
     `;   
     // Writes the README.md file from content //
     fs.writeFile("README.md", content, err => {
