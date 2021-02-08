@@ -1,6 +1,26 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-// Need promt for title of project, then seciton for the following description, table of contents, installation, usage, license, contributing, tests, and questions.
+
+// Generates badges for each license //
+const licensebadge = license => {
+    switch (license) {
+
+        case 'Apache License v2.0':
+            return '![License: Apache License v2.0](https://img.shields.io/badge/License-Apache%20License%20v2.0-green?style=for-the-badge)';         
+
+        case 'GNU General Public License v3.0':
+            return '![License: GNU General Public License v3.0](https://img.shields.io/badge/License-GNU%20General%20Public%20License%20v3.0-blue?style=for-the-badge)';
+
+        case 'MIT License':
+            return '![License: MIT License](https://img.shields.io/badge/License-MIT%20License-red?style=for-the-badge)';
+
+        case 'Mozilla Public License 2.0':
+            return '![License: Mozilla Public License 2.0](https://img.shields.io/badge/License-Mozilla%20Public%20License%202.0-orange?style=for-the-badge)';
+
+    }
+};
+
+// Questions //
 inquirer.prompt([
     {
         type: "input",
@@ -55,8 +75,11 @@ inquirer.prompt([
     }
     
 ]).then(response => {
-    const content = `
+// Creating the content of the README.md file //
+const content = `
 # ${response.title}
+
+${licensebadge(response.license)}
 
 ## Table of Contents
 * [Description](#description)
@@ -77,7 +100,7 @@ ${response.installation}
 ${response.usage}
 
 ## License
-${response.license}
+This README was created with ${response.license}.
 
 ## Contributors
 ${response.contributors}
@@ -86,28 +109,12 @@ ${response.contributors}
 ${response.test}
 
 ## Questions
-Please see Github Profile and Email Address below to ask questions  
+If you have any questions please contact me via Github or Email below  
 Github Profile: ${response.github} | Email: ${response.email}
     `;   
-    
-    fs.writeFile('README.md', content, err => {
+    // Writes the README.md file from content //
+    fs.writeFile("README.md", content, err => {
         if (err) console.log(err);
-        else console.log('success!');
+        else console.log("Successfully wrote to README.md");
       });
 });
-
-// GIVEN a command-line application that accepts user input
-// WHEN I am prompted for information about my application repository
-// THEN a high-quality, professional README.md is generated with the title of my project and sections entitled Description, Table of Contents, Installation, Usage, License, Contributing, Tests, and Questions
-// WHEN I enter my project title
-// THEN this is displayed as the title of the README
-// WHEN I enter a description, installation instructions, usage information, contribution guidelines, and test instructions
-// THEN this information is added to the sections of the README entitled Description, Installation, Usage, Contributing, and Tests
-// WHEN I choose a license for my application from a list of options
-// THEN a badge for that license is added near the top of the README and a notice is added to the section of the README entitled License that explains which license the application is covered under
-// WHEN I enter my GitHub username
-// THEN this is added to the section of the README entitled Questions, with a link to my GitHub profile
-// WHEN I enter my email address
-// THEN this is added to the section of the README entitled Questions, with instructions on how to reach me with additional questions
-// WHEN I click on the links in the Table of Contents
-// THEN I am taken to the corresponding section of the README
